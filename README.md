@@ -1,6 +1,21 @@
 #----------------------------------------------------------------------------------------------------------------------------
 
 # installation
+first update the pluto firmware version https://wiki.analog.com/university/tools/pluto/users/firmware
+a. check the current verion
+   iio_info -s
+   should be v0.23
+b. https://github.com/analogdevicesinc/plutosdr-fw/releases/tag/v0.34
+   copy all te files of plutosdr-fw-v0.34.zip
+   to plutoSDR drive
+   
+   Eject usb 
+   
+   wait for blibking led about 4minuts
+   
+   reboot pluto
+
+
 1. install libiio ver 0.23 which is compatible with srs 2019.1 bitfile
     https://github.com/analogdevicesinc/plutosdr-fw/releases/tag/v0.34
 2. install libiio-ad936x
