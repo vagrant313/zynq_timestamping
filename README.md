@@ -1,3 +1,78 @@
+#----------------------------------------------------------------------------------------------------------------------------
+
+# installation
+1. install libiio ver 0.23 which is compatible with srs 2019.1 bitfile
+    https://github.com/analogdevicesinc/plutosdr-fw/releases/tag/v0.34
+2. install libiio-ad936x
+    wget http://swdownloads.analog.com/cse/travis_builds/master_latest_libad9361-iio-ubuntu-18.04-amd64.deb
+    dpkg -i *.deb
+3. run /app/prepare.sh
+   this will install srs binaries
+   we can use run_txrx_test.sh
+
+4. copy srs release system_top.bit.bin to bootfiles
+   run bitfileUpdate.sh
+5. ssh plutosdr
+   dmesg  -> check bitfile programmed and driver rebinded
+    
+6. run /app/scripts$ ./run_txrx_plutosdr.sh
++ sudo LD_LIBRARY_PATH=/home/ei/srs-zynq-timestamping/zynq_timestamping/app/scripts/../bin_app nice -20 ../bin_app/txrx_test -f 2400000000 -a n_prb=6,context=ip:192.168.2.1 -p 6 -g 50 -o test_txrx_pluto.bin
+Opening RF device...
+Active RF plugins: libsrsran_rf_iio.so
+Inactive RF plugins:
+Supported RF device list: iio
+Trying to open RF device 'iio'
+CH0 n_prb=6
+CH0 context=ip:192.168.2.1
+RF device 'iio' successfully opened
+Subframe len:   1920 samples
+Time advance:   0.000000 us
+Set TX/RX rate: 1.92 MHz
+Set RX gain:    50.0 dB
+Set TX gain:    40.0 dB
+Set TX/RX freq: 2400.00 MHz
+Rx subframe 0
+Transmitting Signal
+Rx subframe 1
+Rx subframe 2
+Rx subframe 3
+Transmitting Signal
+Rx subframe 4
+Rx subframe 5
+Rx subframe 6
+Rx subframe 7
+Rx subframe 8
+Transmitting Signal
+Rx subframe 9
+Rx subframe 10
+Rx subframe 11
+Rx subframe 12
+Rx subframe 13
+Rx subframe 14
+Rx subframe 15
+Rx subframe 16
+Rx subframe 17
+Rx subframe 18
+Rx subframe 19
+Done
+
+/app/scripts$ python3 show.py test_txrx_pluto.bin 
+
+#----------------------------------------------------------------------------------------------------------------------------
+# bitfile update:
+install sshpass
+check ip adress of pluto
+
+copy system_top.bit to /bootfiles
+install bootgen from xilinx repo
+copy bootgen to /bootfiles
+./bootgen -image boot.bif -arch zynq -o i system_top.bit.bin -w
+sudo ./bitfileUpdate
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------
+
 # Zynq timestamping solution
 
 This repository contains the source code of a timestamping mechanism developed by [SRS](http://www.srs.io) for both Zynq MPSoC and RFSoC devices, including RTL and C code, project generation scripts and extensive documentation. The solution is targeting a typical SDR implementation in which the transmission and reception of I/Q samples is triggered by a call to a software function. Two different approaches are supported towards this end:
