@@ -31,7 +31,10 @@ copy all te files of plutosdr-fw-v0.34.zip to plutoSDR drive
     wget http://swdownloads.analog.com/cse/travis_builds/master_latest_libad9361-iio-ubuntu-18.04-amd64.deb
     
     dpkg -i *.deb
+    
+2.a  git clone --recurse-submodules -j8 https://github.com/srsran/zynq_timestamping.git    
 3. run /app/prepare.sh
+   
    this will install srs binaries
    we can use run_txrx_test.sh
 
@@ -43,6 +46,8 @@ copy all te files of plutosdr-fw-v0.34.zip to plutoSDR drive
     
 6. run /app/scripts$ ./run_txrx_plutosdr.sh
 + sudo LD_LIBRARY_PATH=/home/ei/srs-zynq-timestamping/zynq_timestamping/app/scripts/../bin_app nice -20 ../bin_app/txrx_test -f 2400000000 -a n_prb=6,context=ip:192.168.2.1 -p 6 -g 50 -o test_txrx_pluto.bin
+
+```
 Opening RF device...
 Active RF plugins: libsrsran_rf_iio.so
 Inactive RF plugins:
@@ -81,7 +86,7 @@ Rx subframe 17
 Rx subframe 18
 Rx subframe 19
 Done
-
+```
 /app/scripts$ python3 show.py test_txrx_pluto.bin 
 
 #----------------------------------------------------------------------------------------------------------------------------
