@@ -32,8 +32,11 @@ copy all te files of plutosdr-fw-v0.34.zip to plutoSDR drive
     
     dpkg -i *.deb
     
-2.a  git clone --recurse-submodules -j8 https://github.com/srsran/zynq_timestamping.git    
-3. run /app/prepare.sh
+    Install srsRAN
+    
+4. git clone --recurse-submodules -j8 https://github.com/srsran/zynq_timestamping.git
+5. sudo apt-get install build-essential cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev libconfig++-dev libsctp-dev  
+6. run /app/prepare.sh
    
    this will install srs binaries
    we can use run_txrx_test.sh
